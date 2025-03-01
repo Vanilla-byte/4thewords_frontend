@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from "vue";
+import { useRouter } from "vue-router";
+
 import { type Legend, type Canton, type Category, type District, type Province } from "@/service/legends-service";
 import SearchBar from "@/components/SearchBar.vue";
 import CardLegend from "@/components/CardLegend.vue";
@@ -13,6 +15,7 @@ const escapedText = (text: string) =>
     .toUpperCase()
     .trim();
 
+const router = useRouter();
 const store = useLegendStore();
 const listLegendFiltred = ref<Legend[]>([]);
 
@@ -62,6 +65,14 @@ const applyFilters = () => {
   );
 };
 
+const editLegend = (legend: Legend) => {
+  router.push({ name: "form-legend", params: { id: legend.id } });
+};
+
+const deleteLegend = (legend: Legend) => {
+  console.log("delete", legend);
+};
+
 watch(
   filters,
   debounce(() => {
@@ -89,7 +100,7 @@ onMounted(async () => {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4 h-[60vh] overflow-y-auto">
       <template v-for="(legend, i) in listLegendFiltred" :key="i">
-        <CardLegend :legend="legend" />
+        <CardLegend :legend="legend" @edit="editLegend" @delete="deleteLegend" />
       </template>
     </div>
   </div>

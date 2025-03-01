@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const model = defineModel<FileList | null>();
+const model = defineModel();
 
 function handlePhoto(event: Event) {
   const valF = (event.target as HTMLInputElement)?.files;

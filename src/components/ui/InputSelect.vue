@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 
-const model = defineModel<Record<string, unknown>>();
+type OptionType<T = unknown> = T extends object ? T : Record<string, unknown>;
+const model = defineModel();
 
 const props = withDefaults(
   defineProps<{
@@ -9,7 +10,7 @@ const props = withDefaults(
     returnObject?: boolean;
     optionValue?: string;
     optionLabel?: string;
-    options: Array<Record<string, unknown>>;
+    options: Array<OptionType>;
   }>(),
   {
     returnObject: true,
@@ -34,9 +35,9 @@ const internalValue = computed({
         }
         return opt[props.optionValue] === value;
       });
-      model.value = (selectedObject || value) as Record<string, unknown>;
+      model.value = (selectedObject || value) as OptionType;
     } else {
-      model.value = value as Record<string, unknown>;
+      model.value = value as OptionType;
     }
   },
 });
@@ -63,7 +64,7 @@ onMounted(() => {
       model.value = selectedObject;
     }
   } else if (model.value && !props.returnObject && typeof model.value === "object") {
-    model.value = model.value[props.optionValue];
+    model.value = (model.value as OptionType)[props.optionValue] as OptionType;
   }
 });
 </script>
