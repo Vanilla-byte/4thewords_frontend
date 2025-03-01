@@ -1,40 +1,5 @@
-export type Province = {
-  name: string;
-  id: string;
-};
-
-export type Canton = {
-  name: string;
-  id: string;
-  province_id: string;
-};
-
-export type District = {
-  name: string;
-  id: string;
-  canton_id: string;
-};
-
-export type Category = {
-  name: string;
-  id: string;
-};
-
-export type Location = {
-  province: Province;
-  canton: Omit<Canton, "province_id">;
-  district: Omit<District, "canton_id">;
-};
-
-export type Legend = {
-  name: string;
-  category: Category;
-  description: string;
-  legend_date: string;
-  location: Location;
-  image: string;
-  source: string;
-};
+import { Category, Province, Canton, District, Legend } from "@/schemas/legends";
+import { z } from "zod";
 
 export function useLegends() {
   const fetchLegends = async (): Promise<Legend[]> => {
@@ -42,10 +7,18 @@ export function useLegends() {
       headers: { "Cache-Control": "no-cache" },
     });
 
-    await new Promise((resolve) => {
-      setTimeout(() => resolve("s"), 500);
+    const data = await legendsData.json();
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const result = z.array(Legend).safeParse(data);
+        if (result.success) {
+          resolve(result.data);
+        } else {
+          console.log(result);
+          resolve([]);
+        }
+      }, 500);
     });
-    return legendsData.json();
   };
 
   return { fetchLegends };

@@ -1,13 +1,7 @@
 import { defineStore } from "pinia";
-import {
-  type Province,
-  type Canton,
-  type District,
-  type Category,
-  type Legend,
-  useLegends,
-  useListForFilters,
-} from "@/service/legends-service";
+import { type Province, type Canton, type District, type Category, type Legend } from "@/schemas/legends";
+import { useLegends, useListForFilters } from "@/service/legends-service";
+
 const { fetchLegends } = useLegends();
 const { fetchListOfCategories, fetchListOfProvinces, fetchListOfCantons, fetchListOfDistricts } = useListForFilters();
 
@@ -52,8 +46,9 @@ export const useLegendStore = defineStore("legendStore", {
       }
     },
 
-    getLegendById(id: string): Legend | undefined {
-      return this.legends.find((legend) => legend.name === id);
+    async getLegendById(id: number): Promise<Legend | undefined> {
+      if (this.legends.length === 0) await this.fetchLegends();
+      return this.legends.find((legend) => legend.id === id);
     },
   },
 });
