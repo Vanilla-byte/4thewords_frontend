@@ -1,24 +1,32 @@
 <script setup lang="ts">
 import { type Legend } from "@/service/legends-service";
+import { BaseButton } from "@/components/ui";
 
 defineProps<{ legend: Legend }>();
 </script>
 
 <template>
-  <div class="max-w-md mx-auto">
+  <div class="max-w-md mx-auto group">
     <div class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden">
-      <img :src="legend.image" alt="Imagen de la leyenda" class="w-full h-56 object-cover" />
+      <header class="relative overflow-hidden transition-all duration-300">
+        <img :src="legend.image" alt="Imagen de la leyenda" class="w-full h-56 object-cover" />
 
-      <div class="p-6">
+        <div
+          class="absolute bottom-3 left-3 flex flex-wrap gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100"
+        >
+          <BaseButton size="xs">Save</BaseButton>
+        </div>
+      </header>
+
+      <div class="p-6 pt-2">
+        <h2 class="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
+          {{ legend.name }}
+        </h2>
         <span
           class="text-sm font-semibold bg-red-100 text-red-600 px-3 py-1 rounded-full dark:bg-red-700 dark:text-red-200"
         >
           {{ legend.category.name }}
         </span>
-
-        <h2 class="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
-          {{ legend.name }}
-        </h2>
 
         <p class="mt-2 text-gray-700 dark:text-gray-300 text-sm">
           {{ legend.description }}
