@@ -6,9 +6,9 @@ const model = defineModel<Record<string, unknown>>();
 const props = withDefaults(
   defineProps<{
     icon?: string;
-    returnObject: boolean;
-    optionValue: string;
-    optionLabel: string;
+    returnObject?: boolean;
+    optionValue?: string;
+    optionLabel?: string;
     options: Array<Record<string, unknown>>;
   }>(),
   {
