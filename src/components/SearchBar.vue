@@ -49,13 +49,7 @@ onMounted(async () => {
 
       <div>
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoría</label>
-        <input-select
-          v-model="modelCategory"
-          :options="categories"
-          :return-object="true"
-          option-value="id"
-          option-label="name"
-        >
+        <input-select v-model="modelCategory" :options="categories">
           <template #manual-options>
             <option value="">Todas</option>
           </template>
@@ -75,14 +69,7 @@ onMounted(async () => {
 
       <div>
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
-        <input-select
-          v-model="modelProvince"
-          :options="provinces"
-          @change="loadCantons"
-          :return-object="true"
-          option-value="id"
-          option-label="name"
-        >
+        <input-select v-model="modelProvince" :options="provinces" @change="loadCantons">
           <template #manual-options>
             <option value="">Selecciona una provincia</option>
           </template>
@@ -91,15 +78,7 @@ onMounted(async () => {
 
       <div>
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantón</label>
-        <input-select
-          v-model="modelCanton"
-          :options="cantons"
-          @change="loadDistricts"
-          :disabled="!modelProvince"
-          :return-object="true"
-          option-value="id"
-          option-label="name"
-        >
+        <input-select v-model="modelCanton" :options="cantons" @change="loadDistricts" :disabled="!modelProvince">
           <template #manual-options>
             <option value="">Selecciona un cantón</option>
           </template>
@@ -108,14 +87,7 @@ onMounted(async () => {
 
       <div>
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
-        <input-select
-          v-model="modelDistrict"
-          :options="districts"
-          :disabled="!modelCanton"
-          :return-object="true"
-          option-value="id"
-          option-label="name"
-        >
+        <input-select v-model="modelDistrict" :options="districts" :disabled="!modelCanton">
           <template #manual-options>
             <option value="">Selecciona un distrito</option>
           </template>
