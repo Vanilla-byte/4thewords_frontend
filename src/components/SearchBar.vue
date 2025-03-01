@@ -49,7 +49,13 @@ onMounted(async () => {
 
       <div>
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoría</label>
-        <input-select v-model="modelCategory" :options="categories">
+        <input-select
+          v-model="modelCategory"
+          :options="categories"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
+        >
           <template #manual-options>
             <option value="">Todas</option>
           </template>
@@ -73,7 +79,9 @@ onMounted(async () => {
           v-model="modelProvince"
           :options="provinces"
           @change="loadCantons"
-          class="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
         >
           <template #manual-options>
             <option value="">Selecciona una provincia</option>
@@ -88,7 +96,9 @@ onMounted(async () => {
           :options="cantons"
           @change="loadDistricts"
           :disabled="!modelProvince"
-          class="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
         >
           <template #manual-options>
             <option value="">Selecciona un cantón</option>
@@ -102,7 +112,9 @@ onMounted(async () => {
           v-model="modelDistrict"
           :options="districts"
           :disabled="!modelCanton"
-          class="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
         >
           <template #manual-options>
             <option value="">Selecciona un distrito</option>

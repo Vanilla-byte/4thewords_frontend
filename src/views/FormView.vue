@@ -82,7 +82,13 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoría</label>
-        <input-select v-model="form.category" :options="store.categories" />
+        <input-select
+          v-model="form.category"
+          :options="store.categories"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
+        />
       </div>
 
       <div class="w-full">
@@ -98,7 +104,13 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
-        <input-select v-model="form.location.province" :options="store.provinces">
+        <input-select
+          v-model="form.location.province"
+          :options="store.provinces"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
+        >
           <template #manual-options>
             <option value="" disabled>Seleccione una provincia</option>
           </template>
@@ -111,6 +123,9 @@ onMounted(async () => {
           v-model="form.location.canton"
           :options="filteredCantons"
           :disabled="filteredCantons.length === 0"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
         >
           <template #manual-options>
             <option value="" disabled>Seleccione un cantón</option>
@@ -124,6 +139,9 @@ onMounted(async () => {
           v-model="form.location.district"
           :options="filteredDistricts"
           :disabled="filteredDistricts.length === 0"
+          :return-object="true"
+          option-value="id"
+          option-label="name"
         >
           <template #manual-options>
             <option value="" disabled>Seleccione un distrito</option>
