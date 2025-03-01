@@ -1,0 +1,12 @@
+[
+  { "id": "1-1-1", "name": "Carmen", "canton_id": "1-1" },
+  { "id": "1-2-1", "name": "San Miguel", "canton_id": "1-2" },
+  { "id": "2-1-1", "name": "San José 2", "canton_id": "2-1" },
+  { "id": "3-1-1", "name": "Orosi", "canton_id": "3-1" },
+  { "id": "3-2-1", "name": "Oriental", "canton_id": "3-2" },
+  { "id": "3-3-1", "name": "Turrialba", "canton_id": "3-3" },
+  { "id": "4-1-1", "name": "San Francisco", "canton_id": "4-1" },
+  { "id": "5-1-1", "name": "Isla del Coco", "canton_id": "5-1" },
+  { "id": "6-1-1", "name": "Liberia", "canton_id": "6-1" },
+  { "id": "6-2-1", "name": "Nicoya", "canton_id": "6-2" }
+]

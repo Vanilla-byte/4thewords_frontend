@@ -1,0 +1,132 @@
+[
+  {
+    "name": "La Llorona",
+    "category": { "id": "1", "name": "Terror" },
+    "description": "Una mujer que ahogó a sus hijos en un río y ahora llora buscándolos. Se dice que su lamento se escucha en los ríos y caminos solitarios por las noches.",
+    "legend_date": "Siglo XIX",
+    "location": {
+      "province": { "id": "1", "name": "San José" },
+      "canton": { "id": "1-1", "name": "San José" },
+      "district": { "id": "1-1-1", "name": "Carmen" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Tradición oral"
+  },
+  {
+    "name": "El Cadejos",
+    "category": { "id": "2", "name": "Misterio" },
+    "description": "Un perro negro con ojos rojos que aparece en los caminos nocturnos. Protege a los borrachos o castiga a los malhechores.",
+    "legend_date": "Siglo XVIII",
+    "location": {
+      "province": { "id": "2", "name": "Alajuela" },
+      "canton": { "id": "2-1", "name": "Alajuela" },
+      "district": { "id": "2-1-1", "name": "San José 2" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Folklore costarricense"
+  },
+  {
+    "name": "La Tulevieja",
+    "category": { "id": "1", "name": "Terror" },
+    "description": "Un espíritu de una mujer que perdió a su hijo y vaga por los ríos en busca de él. Se le describe con una apariencia aterradora y alas de zopilote.",
+    "legend_date": "Siglo XIX",
+    "location": {
+      "province": { "id": "3", "name": "Cartago" },
+      "canton": { "id": "3-1", "name": "Paraíso" },
+      "district": { "id": "3-1-1", "name": "Orosi" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Tradición oral"
+  },
+  {
+    "name": "El Padre sin Cabeza",
+    "category": { "id": "3", "name": "Paranormal" },
+    "description": "El fantasma de un sacerdote decapitado que aparece en las ruinas de la Iglesia de Cartago en las noches de luna llena.",
+    "legend_date": "Siglo XVIII",
+    "location": {
+      "province": { "id": "3", "name": "Cartago" },
+      "canton": { "id": "3-2", "name": "Cartago" },
+      "district": { "id": "3-2-1", "name": "Oriental" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Relatos de habitantes"
+  },
+  {
+    "name": "La Segua",
+    "category": { "id": "1", "name": "Terror" },
+    "description": "Una mujer hermosa que se convierte en un espectro con cara de caballo para castigar a los hombres infieles o borrachos.",
+    "legend_date": "Siglo XVIII",
+    "location": {
+      "province": { "id": "4", "name": "Heredia" },
+      "canton": { "id": "4-1", "name": "Heredia" },
+      "district": { "id": "4-1-1", "name": "San Francisco" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Relatos populares"
+  },
+  {
+    "name": "El Tesoro de la Isla del Coco",
+    "category": { "id": "4", "name": "Aventuras" },
+    "description": "Se dice que en la Isla del Coco hay un tesoro pirata enterrado, pero nadie ha logrado encontrarlo debido a maldiciones y espíritus guardianes.",
+    "legend_date": "Siglo XVII",
+    "location": {
+      "province": { "id": "5", "name": "Puntarenas" },
+      "canton": { "id": "5-1", "name": "Puntarenas" },
+      "district": { "id": "5-1-1", "name": "Isla del Coco" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Historias de navegantes"
+  },
+  {
+    "name": "El Carretón de la Muerte",
+    "category": { "id": "3", "name": "Paranormal" },
+    "description": "Un carretón fantasma que aparece en las noches transportando almas en pena, acompañado del sonido aterrador de sus ruedas.",
+    "legend_date": "Siglo XIX",
+    "location": {
+      "province": { "id": "1", "name": "San José" },
+      "canton": { "id": "1-2", "name": "Desamparados" },
+      "district": { "id": "1-2-1", "name": "San Miguel" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Historias de ancianos"
+  },
+  {
+    "name": "La Mona",
+    "category": { "id": "2", "name": "Misterio" },
+    "description": "Se dice que una mujer se transforma en una especie de bruja con apariencia de mono gigante para asustar a los habitantes en la zona rural.",
+    "legend_date": "Siglo XX",
+    "location": {
+      "province": { "id": "6", "name": "Guanacaste" },
+      "canton": { "id": "6-1", "name": "Liberia" },
+      "district": { "id": "6-1-1", "name": "Liberia" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Folklore guanacasteco"
+  },
+  {
+    "name": "El Gigante de Turrialba",
+    "category": { "id": "5", "name": "Mitos y leyendas indígenas" },
+    "description": "Cuenta la leyenda que un gigante habitó la zona de Turrialba y que sus pisadas quedaron marcadas en las rocas.",
+    "legend_date": "Época precolombina",
+    "location": {
+      "province": { "id": "3", "name": "Cartago" },
+      "canton": { "id": "3-3", "name": "Turrialba" },
+      "district": { "id": "3-3-1", "name": "Turrialba" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Relatos indígenas"
+  },
+  {
+    "name": "La Cegua de Nicoya",
+    "category": { "id": "1", "name": "Terror" },
+    "description": "Variante de La Segua, esta versión es propia de la región de Nicoya y suele aparecer en caminos oscuros a jinetes solitarios.",
+    "legend_date": "Siglo XVIII",
+    "location": {
+      "province": { "id": "6", "name": "Guanacaste" },
+      "canton": { "id": "6-2", "name": "Nicoya" },
+      "district": { "id": "6-2-1", "name": "Nicoya" }
+    },
+    "image": "https://placehold.co/300x300",
+    "source": "Narraciones de ancianos"
+  }
+]
