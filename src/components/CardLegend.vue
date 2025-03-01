@@ -3,6 +3,7 @@ import { type Legend } from "@/service/legends-service";
 import { BaseButton } from "@/components/ui";
 
 defineProps<{ legend: Legend }>();
+const emit = defineEmits(["edit", "delete"]);
 </script>
 
 <template>
@@ -14,7 +15,8 @@ defineProps<{ legend: Legend }>();
         <div
           class="absolute bottom-3 left-3 flex flex-wrap gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100"
         >
-          <BaseButton size="xs">Save</BaseButton>
+          <BaseButton size="xs" @click="emit('edit', legend)">editar</BaseButton>
+          <BaseButton size="xs" variant="error" @click="emit('delete', legend)">eliminar</BaseButton>
         </div>
       </header>
 
