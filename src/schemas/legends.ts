@@ -1,44 +1,45 @@
-import { Schema } from "effect";
+import { z } from "zod";
 
-export const Category = Schema.Struct({
-  name: Schema.String,
-  id: Schema.String,
+export const Category = z.object({
+  name: z.string(),
+  id: z.number().nullable(),
 });
-export type Category = Schema.Schema.Type<typeof Category>;
+export type Category = z.infer<typeof Category>;
 
-export const Province = Schema.Struct({
-  name: Schema.String,
-  id: Schema.String,
+export const Province = z.object({
+  name: z.string(),
+  id: z.number().nullable(),
 });
-export type Province = Schema.Schema.Type<typeof Province>;
+export type Province = z.infer<typeof Province>;
 
-export const Canton = Schema.Struct({
-  id: Schema.String,
-  name: Schema.String,
-  province_id: Schema.String,
+export const Canton = z.object({
+  id: z.number().nullable(),
+  name: z.string(),
+  province_id: z.number().nullable(),
 });
-export type Canton = Schema.Schema.Type<typeof Canton>;
+export type Canton = z.infer<typeof Canton>;
 
-export const District = Schema.Struct({
-  id: Schema.String,
-  name: Schema.String,
-  canton_id: Schema.String,
+export const District = z.object({
+  id: z.number().nullable(),
+  name: z.string(),
+  canton_id: z.number().nullable(),
 });
-export type District = Schema.Schema.Type<typeof District>;
 
-export const Legend = Schema.Struct({
-  id: Schema.NullOr(Schema.Number),
-  name: Schema.String,
+export type District = z.infer<typeof District>;
+
+export const Legend = z.object({
+  id: z.number().nullable(),
+  name: z.string(),
   category: Category,
-  description: Schema.String,
-  legend_date: Schema.String,
-  location: Schema.Struct({
+  description: z.string(),
+  legend_date: z.string(),
+  location: z.object({
     province: Province,
     canton: Canton,
     district: District,
   }),
-  image: Schema.String,
-  source: Schema.String,
+  image: z.string(),
+  source: z.string(),
 });
 
-export type Legend = Schema.Schema.Type<typeof Legend>;
+export type Legend = z.infer<typeof Legend>;
