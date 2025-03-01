@@ -1,12 +1,12 @@
 [
-  { "id": "1-1", "name": "San José", "province_id": "1" },
-  { "id": "1-2", "name": "Desamparados", "province_id": "1" },
-  { "id": "2-1", "name": "Alajuela", "province_id": "2" },
-  { "id": "3-1", "name": "Paraíso", "province_id": "3" },
-  { "id": "3-2", "name": "Cartago", "province_id": "3" },
-  { "id": "3-3", "name": "Turrialba", "province_id": "3" },
-  { "id": "4-1", "name": "Heredia", "province_id": "4" },
-  { "id": "5-1", "name": "Puntarenas", "province_id": "5" },
-  { "id": "6-1", "name": "Liberia", "province_id": "6" },
-  { "id": "6-2", "name": "Nicoya", "province_id": "6" }
+  { "id": 11, "name": "San José", "province_id": 1 },
+  { "id": 12, "name": "Desamparados", "province_id": 1 },
+  { "id": 21, "name": "Alajuela", "province_id": 2 },
+  { "id": 31, "name": "Paraíso", "province_id": 3 },
+  { "id": 32, "name": "Cartago", "province_id": 3 },
+  { "id": 33, "name": "Turrialba", "province_id": 3 },
+  { "id": 41, "name": "Heredia", "province_id": 4 },
+  { "id": 51, "name": "Puntarenas", "province_id": 5 },
+  { "id": 61, "name": "Liberia", "province_id": 6 },
+  { "id": 62, "name": "Nicoya", "province_id": 6 }
 ]

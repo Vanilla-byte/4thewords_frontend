@@ -1,7 +1,7 @@
 [
-  { "id": "1", "name": "Terror" },
-  { "id": "2", "name": "Misterio" },
-  { "id": "3", "name": "Paranormal" },
-  { "id": "4", "name": "Aventuras" },
-  { "id": "5", "name": "Mitos y leyendas indígenas" }
+  { "id": 1, "name": "Terror" },
+  { "id": 2, "name": "Misterio" },
+  { "id": 3, "name": "Paranormal" },
+  { "id": 4, "name": "Aventuras" },
+  { "id": 5, "name": "Mitos y leyendas indígenas" }
 ]
