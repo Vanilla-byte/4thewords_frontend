@@ -17,9 +17,10 @@ const router = createRouter({
           component: MainView,
         },
         {
-          path: "/form-legend",
+          path: "/form-legend/:id?",
           name: "form-legend",
           component: FormView,
+          props: true,
         },
       ],
     },

@@ -1,44 +1,35 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import { InputSelect, InputText, TextArea, InputFile } from "@/components/ui";
-import {
-  type Legend,
-  type Province,
-  type Canton,
-  type District,
-  type Category,
-  useListForFilters,
-} from "@/service/legends-service";
+import { type Legend } from "@/service/legends-service";
+import { useLegendStore } from "@/stores";
 
 const props = defineProps<{
-  legend?: Legend;
+  id?: string;
 }>();
+
 const emit = defineEmits(["save"]);
+const saveLegend = () => emit("save", form.value);
 
-const { fetchListOfCategories, fetchListOfDistricts, fetchListOfCantons, fetchListOfProvinces } = useListForFilters();
-
+const store = useLegendStore();
+const legend = ref<Legend>();
+const imageModel = ref<FileList | null>(null);
 const form = ref<Legend>({
-  name: props.legend?.name || "",
-  category: props.legend?.category || { id: "", name: "" },
-  description: props.legend?.description || "",
-  legend_date: props.legend?.legend_date || "",
-  location: props.legend?.location || {
+  name: legend.value?.name || "",
+  category: legend.value?.category || { id: "", name: "" },
+  description: legend.value?.description || "",
+  legend_date: legend.value?.legend_date || "",
+  location: legend.value?.location || {
     province: { id: "", name: "" },
     canton: { id: "", name: "" },
     district: { id: "", name: "" },
   },
   image: "",
-  source: props.legend?.source || "",
+  source: legend.value?.source || "",
 });
-const imageModel = ref<FileList | null>(null);
 
-const categories = ref<Category[]>([]);
-const provinces = ref<Province[]>([]);
-const cantons = ref<Canton[]>([]);
-const districts = ref<District[]>([]);
-
-const filteredCantons = computed(() => cantons.value.filter((c) => c.province_id === form.value.location.province.id));
-const filteredDistricts = computed(() => districts.value.filter((d) => d.canton_id === form.value.location.canton.id));
+const filteredCantons = computed(() => store.cantons.filter((c) => c.province_id === form.value.location.province.id));
+const filteredDistricts = computed(() => store.districts.filter((d) => d.canton_id === form.value.location.canton.id));
 
 watch(
   () => form.value.location.province.id,
@@ -55,19 +46,18 @@ watch(
   },
 );
 
-const saveLegend = () => emit("save", form.value);
-
 onMounted(async () => {
-  categories.value = await fetchListOfCategories();
-  provinces.value = await fetchListOfProvinces();
-  cantons.value = await fetchListOfCantons();
-  districts.value = await fetchListOfDistricts();
+  await store.fetchCategories();
+  await store.fetchProvinces();
+  await store.fetchCantons();
+  await store.fetchDistricts();
+  if (props.id) legend.value = store.getLegendById(props.id);
 });
 </script>
 
 <template>
   <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-    <h2 class="text-xl font-semibold">{{ props.legend ? "Editar Leyenda" : "Crear Leyenda" }}</h2>
+    <h2 class="text-xl font-semibold">{{ legend ? "Editar Leyenda" : "Crear Leyenda" }}</h2>
 
     <form @submit.prevent="saveLegend" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-4">
       <div class="w-full">
@@ -92,7 +82,7 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoría</label>
-        <input-select v-model="form.category" :options="categories" />
+        <input-select v-model="form.category" :options="store.categories" />
       </div>
 
       <div class="w-full">
@@ -108,7 +98,7 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
-        <input-select v-model="form.location.province" :options="provinces">
+        <input-select v-model="form.location.province" :options="store.provinces">
           <template #manual-options>
             <option value="" disabled>Seleccione una provincia</option>
           </template>

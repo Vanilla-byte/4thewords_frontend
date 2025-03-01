@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from "vue";
-import {
-  useLegends,
-  type Legend,
-  type Canton,
-  type Category,
-  type District,
-  type Province,
-} from "@/service/legends-service";
+import { type Legend, type Canton, type Category, type District, type Province } from "@/service/legends-service";
 import SearchBar from "@/components/SearchBar.vue";
 import CardLegend from "@/components/CardLegend.vue";
 import { debounce } from "@/utils";
 import { Duration, Match } from "effect";
+import { useLegendStore } from "@/stores";
 
-const escapedText = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").toUpperCase();
+const escapedText = (text: string) =>
+  text
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .toUpperCase()
+    .trim();
 
-const { fetchLegends } = useLegends();
-const listLegends = ref<Legend[]>([]);
+const store = useLegendStore();
 const listLegendFiltred = ref<Legend[]>([]);
 
 export type Filters = {
@@ -38,9 +35,7 @@ const filters = reactive<Filters>({
 });
 
 const applyFilters = () => {
-  console.log("Aplicando filtros");
-
-  listLegendFiltred.value = listLegends.value.filter((legend) =>
+  listLegendFiltred.value = store.legends.filter((legend) =>
     Match.value(legend).pipe(
       Match.when(
         () => !!filters.name && !escapedText(legend.name).includes(escapedText(filters.name)),
@@ -76,8 +71,8 @@ watch(
 );
 
 onMounted(async () => {
-  listLegends.value = await fetchLegends();
-  listLegendFiltred.value = listLegends.value;
+  await store.fetchLegends();
+  listLegendFiltred.value = store.legends;
 });
 </script>
 
