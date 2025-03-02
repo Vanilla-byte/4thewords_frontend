@@ -2,12 +2,15 @@
 import { onMounted, reactive, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
-import { type Legend, type Canton, type Category, type District, type Province } from "@/service/legends-service";
+import { type Legend, type Canton, type Category, type District, type Province } from "@/schemas/legends";
 import SearchBar from "@/components/SearchBar.vue";
 import CardLegend from "@/components/CardLegend.vue";
 import { debounce } from "@/utils";
 import { Duration, Match } from "effect";
 import { useLegendStore } from "@/stores";
+
+import { useConfirmDelete } from "@/composables/useConfirmDelete";
+const { confirmDelete } = useConfirmDelete();
 
 const escapedText = (text: string) =>
   text
@@ -69,10 +72,16 @@ const editLegend = (legend: Legend) => {
   router.push({ name: "form-legend", params: { id: legend.id } });
 };
 
-const deleteLegend = (legend: Legend) => {
-  console.log("delete", legend);
+const deleteLegend = (id: number) => {
+  console.log(`Leyenda eliminada: ${id}`);
 };
 
+const cancelDelete = (id: number) => {
+  console.log(`Eliminación cancelada: ${id}`);
+};
+const handleDelete = (id: number) => {
+  confirmDelete(id, deleteLegend, cancelDelete);
+};
 watch(
   filters,
   debounce(() => {
@@ -100,7 +109,7 @@ onMounted(async () => {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4 h-[60vh] overflow-y-auto">
       <template v-for="(legend, i) in listLegendFiltred" :key="i">
-        <CardLegend :legend="legend" @edit="editLegend" @delete="deleteLegend" />
+        <CardLegend :legend="legend" @edit="editLegend" @delete="handleDelete($event.id)" />
       </template>
     </div>
   </div>
