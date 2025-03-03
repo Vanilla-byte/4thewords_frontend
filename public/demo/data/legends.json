@@ -5,11 +5,9 @@
     "category": { "id": 1, "name": "Terror" },
     "description": "Una mujer que ahogó a sus hijos en un río y ahora llora buscándolos. Se dice que su lamento se escucha en los ríos y caminos solitarios por las noches.",
     "legend_date": "Siglo XIX",
-    "location": {
-      "province": { "id": 1, "name": "San José" },
-      "canton": { "id": 11, "name": "San José", "province_id": 1 },
-      "district": { "id": 111, "name": "Carmen", "canton_id": 11 }
-    },
+    "province": { "id": 1, "name": "San José" },
+    "canton": { "id": 11, "name": "San José", "province_id": 1 },
+    "district": { "id": 111, "name": "Carmen", "canton_id": 11 },
     "image": "https://placehold.co/300x300",
     "source": "Tradición oral"
   },
@@ -19,11 +17,9 @@
     "category": { "id": 2, "name": "Misterio" },
     "description": "Un perro negro con ojos rojos que aparece en los caminos nocturnos. Protege a los borrachos o castiga a los malhechores.",
     "legend_date": "Siglo XVIII",
-    "location": {
-      "province": { "id": 2, "name": "Alajuela" },
-      "canton": { "id": 21, "name": "Alajuela", "province_id": 2 },
-      "district": { "id": 211, "name": "San José 2", "canton_id": 21 }
-    },
+    "province": { "id": 2, "name": "Alajuela" },
+    "canton": { "id": 21, "name": "Alajuela", "province_id": 2 },
+    "district": { "id": 211, "name": "San José 2", "canton_id": 21 },
     "image": "https://placehold.co/300x300",
     "source": "Folklore costarricense"
   },
@@ -33,11 +29,9 @@
     "category": { "id": 1, "name": "Terror" },
     "description": "Un espíritu de una mujer que perdió a su hijo y vaga por los ríos en busca de él. Se le describe con una apariencia aterradora y alas de zopilote.",
     "legend_date": "Siglo XIX",
-    "location": {
-      "province": { "id": 3, "name": "Cartago" },
-      "canton": { "id": 31, "name": "Paraíso", "province_id": 3 },
-      "district": { "id": 311, "name": "Orosi", "canton_id": 31 }
-    },
+    "province": { "id": 3, "name": "Cartago" },
+    "canton": { "id": 31, "name": "Paraíso", "province_id": 3 },
+    "district": { "id": 311, "name": "Orosi", "canton_id": 31 },
     "image": "https://placehold.co/300x300",
     "source": "Tradición oral"
   },
@@ -47,11 +41,9 @@
     "category": { "id": 3, "name": "Paranormal" },
     "description": "El fantasma de un sacerdote decapitado que aparece en las ruinas de la Iglesia de Cartago en las noches de luna llena.",
     "legend_date": "Siglo XVIII",
-    "location": {
-      "province": { "id": 3, "name": "Cartago" },
-      "canton": { "id": 31, "name": "Paraíso", "province_id": 3 },
-      "district": { "id": 311, "name": "Orosi", "canton_id": 31 }
-    },
+    "province": { "id": 3, "name": "Cartago" },
+    "canton": { "id": 31, "name": "Paraíso", "province_id": 3 },
+    "district": { "id": 311, "name": "Orosi", "canton_id": 31 },
     "image": "https://placehold.co/300x300",
     "source": "Relatos de habitantes"
   },
@@ -61,11 +53,9 @@
     "category": { "id": 1, "name": "Terror" },
     "description": "Una mujer hermosa que se convierte en un espectro con cara de caballo para castigar a los hombres infieles o borrachos.",
     "legend_date": "Siglo XVIII",
-    "location": {
-      "province": { "id": 4, "name": "Heredia" },
-      "canton": { "id": 41, "name": "Heredia", "province_id": 4 },
-      "district": { "id": 411, "name": "San Francisco", "canton_id": 41 }
-    },
+    "province": { "id": 4, "name": "Heredia" },
+    "canton": { "id": 41, "name": "Heredia", "province_id": 4 },
+    "district": { "id": 411, "name": "San Francisco", "canton_id": 41 },
     "image": "https://placehold.co/300x300",
     "source": "Relatos populares"
   },
@@ -75,11 +65,9 @@
     "category": { "id": 4, "name": "Aventuras" },
     "description": "Se dice que en la Isla del Coco hay un tesoro pirata enterrado, pero nadie ha logrado encontrarlo debido a maldiciones y espíritus guardianes.",
     "legend_date": "Siglo XVII",
-    "location": {
-      "province": { "id": 5, "name": "Puntarenas" },
-      "canton": { "id": 51, "name": "Puntarenas", "province_id": 5 },
-      "district": { "id": 511, "name": "Isla del Coco", "canton_id": 51 }
-    },
+    "province": { "id": 5, "name": "Puntarenas" },
+    "canton": { "id": 51, "name": "Puntarenas", "province_id": 5 },
+    "district": { "id": 511, "name": "Isla del Coco", "canton_id": 51 },
     "image": "https://placehold.co/300x300",
     "source": "Historias de navegantes"
   },
@@ -89,11 +77,9 @@
     "category": { "id": 3, "name": "Paranormal" },
     "description": "Un carretón fantasma que aparece en las noches transportando almas en pena, acompañado del sonido aterrador de sus ruedas.",
     "legend_date": "Siglo XIX",
-    "location": {
-      "province": { "id": 1, "name": "San José" },
-      "canton": { "id": 12, "name": "Desamparados", "province_id": 1 },
-      "district": { "id": 121, "name": "San Miguel", "canton_id": 12 }
-    },
+    "province": { "id": 1, "name": "San José" },
+    "canton": { "id": 12, "name": "Desamparados", "province_id": 1 },
+    "district": { "id": 121, "name": "San Miguel", "canton_id": 12 },
     "image": "https://placehold.co/300x300",
     "source": "Historias de ancianos"
   },
@@ -103,11 +89,9 @@
     "category": { "id": 2, "name": "Misterio" },
     "description": "Se dice que una mujer se transforma en una especie de bruja con apariencia de mono gigante para asustar a los habitantes en la zona rural.",
     "legend_date": "Siglo XX",
-    "location": {
-      "province": { "id": 6, "name": "Guanacaste" },
-      "canton": { "id": 61, "name": "Liberia", "province_id": 6 },
-      "district": { "id": 611, "name": "Liberia", "canton_id": 61 }
-    },
+    "province": { "id": 6, "name": "Guanacaste" },
+    "canton": { "id": 61, "name": "Liberia", "province_id": 6 },
+    "district": { "id": 611, "name": "Liberia", "canton_id": 61 },
     "image": "https://placehold.co/300x300",
     "source": "Folklore guanacasteco"
   },
@@ -117,11 +101,9 @@
     "category": { "id": 5, "name": "Mitos y leyendas indígenas" },
     "description": "Cuenta la leyenda que un gigante habitó la zona de Turrialba y que sus pisadas quedaron marcadas en las rocas.",
     "legend_date": "Época precolombina",
-    "location": {
-      "province": { "id": 3, "name": "Cartago" },
-      "canton": { "id": 33, "name": "Turrialba", "province_id": 3 },
-      "district": { "id": 331, "name": "Turrialba", "canton_id": 33 }
-    },
+    "province": { "id": 3, "name": "Cartago" },
+    "canton": { "id": 33, "name": "Turrialba", "province_id": 3 },
+    "district": { "id": 331, "name": "Turrialba", "canton_id": 33 },
     "image": "https://placehold.co/300x300",
     "source": "Relatos indígenas"
   },
@@ -131,11 +113,9 @@
     "category": { "id": 1, "name": "Terror" },
     "description": "Variante de La Segua, esta versión es propia de la región de Nicoya y suele aparecer en caminos oscuros a jinetes solitarios.",
     "legend_date": "Siglo XVIII",
-    "location": {
-      "province": { "id": 6, "name": "Guanacaste" },
-      "canton": { "id": 62, "name": "Nicoya", "province_id": 6 },
-      "district": { "id": 621, "name": "Nicoya", "canton_id": 62 }
-    },
+    "province": { "id": 6, "name": "Guanacaste" },
+    "canton": { "id": 62, "name": "Nicoya", "province_id": 6 },
+    "district": { "id": 621, "name": "Nicoya", "canton_id": 62 },
     "image": "https://placehold.co/300x300",
     "source": "Narraciones de ancianos"
   }

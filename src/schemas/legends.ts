@@ -33,12 +33,10 @@ export const Legend = z.object({
   category: Category,
   description: z.string(),
   legend_date: z.string(),
-  location: z.object({
-    province: Province,
-    canton: Canton,
-    district: District,
-  }),
-  image: z.string(),
+  province: Province,
+  canton: Canton,
+  district: District,
+  image_url: z.string(),
   source: z.string(),
 });
 

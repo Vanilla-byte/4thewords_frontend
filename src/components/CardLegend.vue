@@ -10,7 +10,7 @@ const emit = defineEmits(["edit", "delete"]);
   <div class="max-w-md mx-auto group">
     <div class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden">
       <header class="relative overflow-hidden transition-all duration-300">
-        <img :src="legend.image" alt="Imagen de la leyenda" class="w-full h-56 object-cover" />
+        <img :src="legend.image_url" alt="Imagen de la leyenda" class="w-full h-56 object-cover" />
 
         <div
           class="absolute bottom-3 left-3 flex flex-wrap gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100"
@@ -37,8 +37,8 @@ const emit = defineEmits(["edit", "delete"]);
         <div class="mt-4 text-gray-500 dark:text-gray-400 text-sm flex flex-col gap-1">
           <p>📅 <strong>Fecha:</strong> {{ legend.legend_date }}</p>
           <p>
-            📍 <strong>Ubicación:</strong> {{ legend.location.district.name }}, {{ legend.location.canton.name }},
-            {{ legend.location.province.name }}
+            📍 <strong>Ubicación:</strong> {{ legend.district.name }}, {{ legend.canton.name }},
+            {{ legend.province.name }}
           </p>
         </div>
 

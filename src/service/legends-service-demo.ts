@@ -1,11 +1,9 @@
-import { z } from "zod";
-
-import { envVars } from "@/settings/env-vars";
 import { Category, Province, Canton, District, Legend } from "@/schemas/legends";
+import { z } from "zod";
 
 export function useLegends() {
   const fetchLegends = async (): Promise<Legend[]> => {
-    const legendsData = await fetch(`${envVars.API_URL}/api/v1/legends`, {
+    const legendsData = await fetch("/demo/data/legends.json", {
       headers: { "Cache-Control": "no-cache" },
     });
 

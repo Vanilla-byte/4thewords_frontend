@@ -52,15 +52,15 @@ const applyFilters = () => {
         () => false,
       ),
       Match.when(
-        () => !!filters.province && legend.location.province.id !== filters.province.id,
+        () => !!filters.province && legend.province.id !== filters.province.id,
         () => false,
       ),
       Match.when(
-        () => !!filters.canton && legend.location.canton.id !== filters.canton.id,
+        () => !!filters.canton && legend.canton.id !== filters.canton.id,
         () => false,
       ),
       Match.when(
-        () => !!filters.district && legend.location.district.id !== filters.district.id,
+        () => !!filters.district && legend.district.id !== filters.district.id,
         () => false,
       ),
       Match.orElse(() => true),

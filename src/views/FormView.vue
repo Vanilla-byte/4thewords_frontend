@@ -14,18 +14,16 @@ const emptyLegend = {
   category: { id: null, name: "" },
   description: "",
   legend_date: "",
-  location: {
-    province: { id: null, name: "" },
-    canton: {
-      id: null,
-      name: "",
-      province_id: null,
-    },
-    district: {
-      id: null,
-      name: "",
-      canton_id: null,
-    },
+  province: { id: null, name: "" },
+  canton: {
+    id: null,
+    name: "",
+    province_id: null,
+  },
+  district: {
+    id: null,
+    name: "",
+    canton_id: null,
   },
   image: "",
   source: "",
@@ -36,8 +34,8 @@ const imageModel = ref<FileList | null>(null);
 const form = ref<Legend>(emptyLegend);
 const errors = ref<{ [key: string]: string[] }>({});
 
-const filteredCantons = computed(() => store.cantons.filter((c) => c.province_id === form.value.location.province.id));
-const filteredDistricts = computed(() => store.districts.filter((d) => d.canton_id === form.value.location.canton.id));
+const filteredCantons = computed(() => store.cantons.filter((c) => c.province_id === form.value.province.id));
+const filteredDistricts = computed(() => store.districts.filter((d) => d.canton_id === form.value.canton.id));
 
 watch(
   () => route.params.id,
@@ -50,21 +48,21 @@ watch(
 );
 
 watch(
-  () => form.value.location.province.id,
+  () => form.value.province.id,
   (newValue, oldValue) => {
     if (newValue !== null && oldValue !== null) {
-      form.value.location.canton = emptyLegend.location.canton;
-      form.value.location.district = emptyLegend.location.district;
+      form.value.canton = emptyLegend.canton;
+      form.value.district = emptyLegend.district;
     }
   },
   { deep: true },
 );
 
 watch(
-  () => form.value.location.canton.id,
+  () => form.value.canton.id,
   (newValue, oldValue) => {
     if (newValue !== null && oldValue !== null) {
-      form.value.location.district = emptyLegend.location.district;
+      form.value.district = emptyLegend.district;
     }
   },
   { deep: true },
@@ -140,7 +138,7 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
-        <input-select v-model="form.location.province" :options="store.provinces">
+        <input-select v-model="form.province" :options="store.provinces">
           <template #manual-options>
             <option value="" disabled>Seleccione una provincia</option>
           </template>
@@ -149,11 +147,7 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantón</label>
-        <input-select
-          v-model="form.location.canton"
-          :options="filteredCantons"
-          :disabled="filteredCantons.length === 0"
-        >
+        <input-select v-model="form.canton" :options="filteredCantons" :disabled="filteredCantons.length === 0">
           <template #manual-options>
             <option value="" disabled>Seleccione un cantón</option>
           </template>
@@ -162,11 +156,7 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
-        <input-select
-          v-model="form.location.district"
-          :options="filteredDistricts"
-          :disabled="filteredDistricts.length === 0"
-        >
+        <input-select v-model="form.district" :options="filteredDistricts" :disabled="filteredDistricts.length === 0">
           <template #manual-options>
             <option value="" disabled>Seleccione un distrito</option>
           </template>
