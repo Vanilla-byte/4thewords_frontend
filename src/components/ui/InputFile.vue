@@ -2,7 +2,8 @@
 const model = defineModel();
 
 function handlePhoto(event: Event) {
-  const valF = (event.target as HTMLInputElement)?.files;
+  const input = event.target as HTMLInputElement;
+  const valF = input?.files?.[0] || null;
   model.value = valF;
 }
 </script>

@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { Match } from "effect";
 
 import { InputSelect, InputText, TextArea, InputFile } from "@/components/ui";
 import { Legend } from "@/schemas/legends";
 import { useLegendStore } from "@/stores";
+import { useNotify } from "@/composables/useSwal";
 
 const route = useRoute();
+const { notify } = useNotify();
+const extractFirst = <T,>(value: T | T[]): T => (Array.isArray(value) ? value[0] : value);
 
 const emptyLegend = {
   id: null,
@@ -25,13 +29,13 @@ const emptyLegend = {
     name: "",
     canton_id: null,
   },
-  image: "",
+  image_url: "",
   source: "",
 } satisfies Legend;
 
 const store = useLegendStore();
-const imageModel = ref<FileList | null>(null);
-const form = ref<Legend>(emptyLegend);
+const imageModel = ref<File | null>(null);
+const form = ref<Legend>(structuredClone(emptyLegend));
 const errors = ref<{ [key: string]: string[] }>({});
 
 const filteredCantons = computed(() => store.cantons.filter((c) => c.province_id === form.value.province.id));
@@ -40,9 +44,15 @@ const filteredDistricts = computed(() => store.districts.filter((d) => d.canton_
 watch(
   () => route.params.id,
   async (newValue) => {
-    const legend = await store.getLegendById(Number(newValue));
-    form.value = legend ?? emptyLegend;
-    if (!legend) console.log("No existe");
+    const id = extractFirst(newValue);
+    const legend = await store.getLegendById(id);
+    form.value = legend ?? structuredClone(emptyLegend);
+    if (!legend && route.params.id)
+      notify({
+        title: "Alerta",
+        text: `La leyenda de ID ${newValue} no existe`,
+        variant: "warning",
+      });
   },
   { immediate: true },
 );
@@ -51,26 +61,23 @@ watch(
   () => form.value.province.id,
   (newValue, oldValue) => {
     if (newValue !== null && oldValue !== null) {
-      form.value.canton = emptyLegend.canton;
-      form.value.district = emptyLegend.district;
+      console.log(emptyLegend);
+      form.value.canton = structuredClone(emptyLegend.canton);
+      form.value.district = structuredClone(emptyLegend.district);
     }
   },
-  { deep: true },
 );
 
 watch(
   () => form.value.canton.id,
   (newValue, oldValue) => {
     if (newValue !== null && oldValue !== null) {
-      form.value.district = emptyLegend.district;
+      form.value.district = structuredClone(emptyLegend.district);
     }
   },
-  { deep: true },
 );
 
-// Validación con Zod
 const validateForm = () => {
-  console.log(form.value);
   const result = Legend.safeParse(form.value);
 
   if (!result.success) {
@@ -80,12 +87,45 @@ const validateForm = () => {
   errors.value = {};
   return true;
 };
-const saveLegend = () => {
+
+const saveLegend = async () => {
   if (validateForm()) {
-    console.log("✅ Formulario válido:", form.value);
-    store.addLegend(form.value);
+    if (imageModel.value === null) {
+      return notify({
+        title: "Error",
+        text: "la imagen es requerida",
+        variant: "error",
+      });
+    }
+
+    const id = extractFirst(route.params.id);
+    const result = await Match.value(id).pipe(
+      Match.when(
+        (id) => id !== null,
+        async (id) => store.updateLegend(id, form.value, imageModel.value as File),
+      ),
+      Match.orElse(async () => store.createLegend(form.value, imageModel.value as File)),
+    );
+
+    if (result) {
+      form.value = structuredClone(emptyLegend);
+      return notify({
+        title: "Excelente",
+        text: "La operacion se realizo con exito",
+        variant: "success",
+      });
+    }
+    notify({
+      title: "Notificación",
+      text: "No se puedo guardar el registro",
+      variant: "warning",
+    });
   } else {
-    console.error("❌ Errores de validación:", errors.value);
+    return notify({
+      title: "Notificación",
+      text: "Faltan datos en el formulario",
+      variant: "info",
+    });
   }
 };
 onMounted(async () => {
@@ -98,11 +138,13 @@ onMounted(async () => {
 
 <template>
   <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-    <h2 class="text-xl font-semibold">{{ route.params.id ? "Editar Leyenda" : "Crear Leyenda" }}</h2>
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+      {{ route.params.id ? "Editar Leyenda" : "Crear Leyenda" }}
+    </h2>
     <form @submit.prevent="saveLegend" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-4">
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-        <input-text v-model="form.name" type="text" required>
+        <input-text required v-model="form.name" type="text">
           <template #icon>
             <svg
               class="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -123,12 +165,13 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoría</label>
-        <input-select v-model="form.category" :options="store.categories" />
+        <input-select required v-model="form.category" :options="store.categories" />
       </div>
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de la Leyenda</label>
         <input
+          required
           v-model="form.legend_date"
           type="date"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -138,7 +181,7 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provincia</label>
-        <input-select v-model="form.province" :options="store.provinces">
+        <input-select required v-model="form.province" :options="store.provinces">
           <template #manual-options>
             <option value="" disabled>Seleccione una provincia</option>
           </template>
@@ -147,7 +190,12 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantón</label>
-        <input-select v-model="form.canton" :options="filteredCantons" :disabled="filteredCantons.length === 0">
+        <input-select
+          required
+          v-model="form.canton"
+          :options="filteredCantons"
+          :disabled="filteredCantons.length === 0"
+        >
           <template #manual-options>
             <option value="" disabled>Seleccione un cantón</option>
           </template>
@@ -156,7 +204,12 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Distrito</label>
-        <input-select v-model="form.district" :options="filteredDistricts" :disabled="filteredDistricts.length === 0">
+        <input-select
+          required
+          v-model="form.district"
+          :options="filteredDistricts"
+          :disabled="filteredDistricts.length === 0"
+        >
           <template #manual-options>
             <option value="" disabled>Seleccione un distrito</option>
           </template>
@@ -165,15 +218,15 @@ onMounted(async () => {
 
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL de Imagen</label>
-        <input-file v-model="imageModel" required />
+        <input-file required v-model="imageModel" />
       </div>
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fuente</label>
-        <input-text v-model="form.source" type="text" required />
+        <input-text required v-model="form.source" type="text" />
       </div>
       <div class="w-full">
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
-        <text-area v-model="form.description" required />
+        <text-area required v-model="form.description" />
       </div>
 
       <div class="w-full ml-auto">

@@ -1,71 +1,79 @@
 import { z } from "zod";
 
 import { envVars } from "@/settings/env-vars";
-import { Category, Province, Canton, District, Legend } from "@/schemas/legends";
+import { Legend } from "@/schemas/legends";
+import { jsonToFormData } from "@/utils";
 
 export function useLegends() {
+  const clearData = (legend: Partial<Legend>) => {
+    const { category, province, canton, district, ...restLegend } = legend;
+
+    return {
+      category_id: category?.id ?? null,
+      province_id: province?.id ?? null,
+      canton_id: canton?.id ?? null,
+      district_id: district?.id ?? null,
+      ...restLegend,
+    };
+  };
   const fetchLegends = async (): Promise<Legend[]> => {
     const legendsData = await fetch(`${envVars.API_URL}/api/v1/legends`, {
       headers: { "Cache-Control": "no-cache" },
     });
 
     const data = await legendsData.json();
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        const result = z.array(Legend).safeParse(data);
-        if (result.success) {
-          resolve(result.data);
-        } else {
-          console.log(result);
-          resolve([]);
-        }
-      }, 500);
-    });
+    const result = z.array(Legend).safeParse(data);
+    if (result.success) {
+      return result.data;
+    } else {
+      return [];
+    }
   };
 
-  return { fetchLegends };
-}
+  const createLegend = async (legend: Omit<Legend, "id">, file?: File): Promise<Legend | null> => {
+    try {
+      console.log("create");
+      const new_legend = clearData(legend);
+      const formData = jsonToFormData(new_legend);
+      if (file) {
+        formData.append("file", file, file.name);
+      }
 
-export function useListForFilters() {
-  const fetchListOfCategories = async (): Promise<Category[]> => {
-    const legendsData = await fetch("/demo/data/list-of-categories.json", {
-      headers: { "Cache-Control": "no-cache" },
-    });
+      const response = await fetch(`${envVars.API_URL}/api/v1/legend`, {
+        method: "POST",
+        body: formData,
+      });
 
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(legendsData.json()), 500);
-    });
+      const data = await response.json();
+      const result = Legend.safeParse(data);
+      return result.success ? result.data : null;
+    } catch (error) {
+      console.error("Error creando la leyenda:", error);
+      return null;
+    }
   };
 
-  const fetchListOfProvinces = async (): Promise<Province[]> => {
-    const legendsData = await fetch("/demo/data/list-of-province.json", {
-      headers: { "Cache-Control": "no-cache" },
-    });
+  const updateLegend = async (id: string, legend: Partial<Legend>, file?: File): Promise<Legend | null> => {
+    try {
+      console.log("update");
+      const new_legend = clearData(legend);
+      const formData = jsonToFormData(new_legend);
+      if (file) {
+        formData.append("file", file);
+      }
 
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(legendsData.json()), 500);
-    });
+      const response = await fetch(`${envVars.API_URL}/api/v1/legend/${id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      const data = await response.json();
+      const result = Legend.safeParse(data);
+      return result.success ? result.data : null;
+    } catch (error) {
+      console.error(`Error actualizando la leyenda con ID ${id}:`, error);
+      return null;
+    }
   };
-
-  const fetchListOfCantons = async (): Promise<Canton[]> => {
-    const legendsData = await fetch("/demo/data/list-of-canton.json", {
-      headers: { "Cache-Control": "no-cache" },
-    });
-
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(legendsData.json()), 500);
-    });
-  };
-
-  const fetchListOfDistricts = async (): Promise<District[]> => {
-    const legendsData = await fetch("/demo/data/list-of-district.json", {
-      headers: { "Cache-Control": "no-cache" },
-    });
-
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(legendsData.json()), 500);
-    });
-  };
-
-  return { fetchListOfCategories, fetchListOfDistricts, fetchListOfCantons, fetchListOfProvinces };
+  return { fetchLegends, createLegend, updateLegend };
 }

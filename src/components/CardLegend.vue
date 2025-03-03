@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Legend } from "@/service/legends-service";
+import { type Legend } from "@/schemas/legends";
 import { BaseButton } from "@/components/ui";
 
 defineProps<{ legend: Legend }>();

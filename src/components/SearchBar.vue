@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { useListForFilters, type Canton, type Category, type District, type Province } from "@/service/legends-service";
+import { type Canton, type Category, type District, type Province } from "@/schemas/legends";
 import { InputSelect, InputText } from "@/components/ui";
+import { useListForFilters } from "@/service";
 
 const { fetchListOfCategories, fetchListOfDistricts, fetchListOfCantons, fetchListOfProvinces } = useListForFilters();
 
