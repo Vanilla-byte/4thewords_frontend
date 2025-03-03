@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { type Province, type Canton, type District, type Category, type Legend } from "@/schemas/legends";
 import { useLegends, useListForFilters } from "@/service";
 
-const { fetchLegends, createLegend, updateLegend } = useLegends();
+const { fetchLegends, createLegend, updateLegend, deleteLegend } = useLegends();
 const { fetchListOfCategories, fetchListOfProvinces, fetchListOfCantons, fetchListOfDistricts } = useListForFilters();
 
 export const useLegendStore = defineStore("legendStore", {
@@ -50,6 +50,18 @@ export const useLegendStore = defineStore("legendStore", {
         }
       }
       return update_legend;
+    },
+
+    async deleteLegend(id: string) {
+      const deleted = await deleteLegend(id);
+      if (deleted) {
+        console.log("is deleted");
+        const index = this.legends.findIndex((legend) => String(legend.id) === id);
+        if (index !== -1) {
+          this.legends.splice(index, 1);
+        }
+      }
+      return deleted;
     },
 
     async getLegendById(id: string): Promise<Legend | undefined> {

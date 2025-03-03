@@ -10,7 +10,7 @@ const emit = defineEmits(["edit", "delete"]);
   <div class="max-w-md mx-auto group">
     <div class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden">
       <header class="relative overflow-hidden transition-all duration-300">
-        <img :src="legend.image_url" alt="Imagen de la leyenda" class="w-full h-56 object-cover" />
+        <img :src="legend.image_url" class="w-full aspect-square object-cover" :alt="`Image of ${legend.name}`" />
 
         <div
           class="absolute bottom-3 left-3 flex flex-wrap gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100"

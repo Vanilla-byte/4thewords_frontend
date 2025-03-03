@@ -2,7 +2,7 @@ import { useSwal } from "./useSwal";
 const Swal = useSwal();
 
 export function useConfirmDelete() {
-  const confirmDelete = (id: number, onConfirm: (id: number) => void, onCancel?: (id: number) => void) => {
+  const confirmDelete = (id: string, onConfirm: (id: string) => void, onCancel?: (id: string) => void) => {
     if (document.documentElement.classList.contains("dark")) {
       document.documentElement.classList.add("dark");
     }

@@ -101,7 +101,7 @@ const saveLegend = async () => {
     const id = extractFirst(route.params.id);
     const result = await Match.value(id).pipe(
       Match.when(
-        (id) => id !== null,
+        (id) => !!id,
         async (id) => store.updateLegend(id, form.value, imageModel.value as File),
       ),
       Match.orElse(async () => store.createLegend(form.value, imageModel.value as File)),
@@ -109,6 +109,7 @@ const saveLegend = async () => {
 
     if (result) {
       form.value = structuredClone(emptyLegend);
+      imageModel.value = null;
       return notify({
         title: "Excelente",
         text: "La operacion se realizo con exito",

@@ -32,7 +32,6 @@ export function useLegends() {
 
   const createLegend = async (legend: Omit<Legend, "id">, file?: File): Promise<Legend | null> => {
     try {
-      console.log("create");
       const new_legend = clearData(legend);
       const formData = jsonToFormData(new_legend);
       if (file) {
@@ -55,7 +54,6 @@ export function useLegends() {
 
   const updateLegend = async (id: string, legend: Partial<Legend>, file?: File): Promise<Legend | null> => {
     try {
-      console.log("update");
       const new_legend = clearData(legend);
       const formData = jsonToFormData(new_legend);
       if (file) {
@@ -75,5 +73,17 @@ export function useLegends() {
       return null;
     }
   };
-  return { fetchLegends, createLegend, updateLegend };
+
+  const deleteLegend = async (id: string): Promise<boolean | null> => {
+    try {
+      const response = await fetch(`${envVars.API_URL}/api/v1/legend/${id}`, {
+        method: "DELETE",
+      });
+      return response.status === 204;
+    } catch (error) {
+      console.error(`Error eliminando la leyenda con ID ${id}:`, error);
+      return null;
+    }
+  };
+  return { fetchLegends, createLegend, updateLegend, deleteLegend };
 }

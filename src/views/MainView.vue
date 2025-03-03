@@ -8,9 +8,11 @@ import CardLegend from "@/components/CardLegend.vue";
 import { debounce } from "@/utils";
 import { Duration, Match } from "effect";
 import { useLegendStore } from "@/stores";
+import { useNotify } from "@/composables/useSwal";
 
 import { useConfirmDelete } from "@/composables/useConfirmDelete";
 const { confirmDelete } = useConfirmDelete();
+const { notify } = useNotify();
 
 const escapedText = (text: string) =>
   text
@@ -72,16 +74,30 @@ const editLegend = (legend: Legend) => {
   router.push({ name: "form-legend", params: { id: legend.id } });
 };
 
-const deleteLegend = (id: number) => {
-  console.log(`Leyenda eliminada: ${id}`);
+const deleteLegend = async (id: string) => {
+  const result = await store.deleteLegend(id);
+  if (result) {
+    return notify({
+      title: "Alerta",
+      text: `La leyenda de ID ${id} fue eliminada`,
+      variant: "success",
+    });
+  } else {
+    notify({
+      title: "Alerta",
+      text: `La leyenda de ID ${id} no se pudo eliminar`,
+      variant: "warning",
+    });
+  }
 };
 
-const cancelDelete = (id: number) => {
+const cancelDelete = (id: string) => {
   console.log(`Eliminación cancelada: ${id}`);
 };
-const handleDelete = (id: number) => {
+const handleDelete = (id: string) => {
   confirmDelete(id, deleteLegend, cancelDelete);
 };
+
 watch(
   filters,
   debounce(() => {
@@ -109,7 +125,7 @@ onMounted(async () => {
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-4 h-[60vh] overflow-y-auto">
       <template v-for="(legend, i) in listLegendFiltred" :key="i">
-        <CardLegend :legend="legend" @edit="editLegend" @delete="handleDelete($event.id)" />
+        <CardLegend :legend="legend" @edit="editLegend" @delete="handleDelete(String($event.id))" />
       </template>
     </div>
   </div>
