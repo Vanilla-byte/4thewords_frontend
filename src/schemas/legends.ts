@@ -33,6 +33,22 @@ export const Legend = z.object({
   category: Category,
   description: z.string(),
   legend_date: z.string(),
+  created_at: z.string(),
+  relative_created_at: z.string(),
+  province: Province,
+  canton: Canton,
+  district: District,
+  image_url: z.string(),
+  source: z.string(),
+});
+export type Legend = z.infer<typeof Legend>;
+
+export const LegendDto = z.object({
+  id: z.number().nullable(),
+  name: z.string(),
+  category: Category,
+  description: z.string(),
+  legend_date: z.string(),
   province: Province,
   canton: Canton,
   district: District,
@@ -40,4 +56,4 @@ export const Legend = z.object({
   source: z.string(),
 });
 
-export type Legend = z.infer<typeof Legend>;
+export type LegendDto = z.infer<typeof LegendDto>;

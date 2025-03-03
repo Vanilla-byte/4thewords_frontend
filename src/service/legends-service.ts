@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { envVars } from "@/settings/env-vars";
-import { Legend } from "@/schemas/legends";
+import { Legend, LegendDto } from "@/schemas/legends";
 import { jsonToFormData } from "@/utils";
 
 export function useLegends() {
@@ -26,11 +26,12 @@ export function useLegends() {
     if (result.success) {
       return result.data;
     } else {
+      console.error(result);
       return [];
     }
   };
 
-  const createLegend = async (legend: Omit<Legend, "id">, file?: File): Promise<Legend | null> => {
+  const createLegend = async (legend: Omit<LegendDto, "id">, file?: File): Promise<Legend | null> => {
     try {
       const new_legend = clearData(legend);
       const formData = jsonToFormData(new_legend);
@@ -52,7 +53,7 @@ export function useLegends() {
     }
   };
 
-  const updateLegend = async (id: string, legend: Partial<Legend>, file?: File): Promise<Legend | null> => {
+  const updateLegend = async (id: string, legend: Partial<LegendDto>, file?: File): Promise<Legend | null> => {
     try {
       const new_legend = clearData(legend);
       const formData = jsonToFormData(new_legend);

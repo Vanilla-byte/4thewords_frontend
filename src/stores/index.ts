@@ -1,5 +1,12 @@
 import { defineStore } from "pinia";
-import { type Province, type Canton, type District, type Category, type Legend } from "@/schemas/legends";
+import {
+  type Province,
+  type Canton,
+  type District,
+  type Category,
+  type Legend,
+  type LegendDto,
+} from "@/schemas/legends";
 import { useLegends, useListForFilters } from "@/service";
 
 const { fetchLegends, createLegend, updateLegend, deleteLegend } = useLegends();
@@ -35,13 +42,13 @@ export const useLegendStore = defineStore("legendStore", {
       this.categories = await fetchListOfCategories();
     },
 
-    async createLegend(legend: Legend, file: File) {
+    async createLegend(legend: LegendDto, file: File) {
       const new_legend = await createLegend(legend, file);
       if (new_legend) this.legends.push(new_legend);
       return new_legend;
     },
 
-    async updateLegend(id: string, legend: Partial<Legend>, file: File) {
+    async updateLegend(id: string, legend: Partial<LegendDto>, file: File) {
       const update_legend = await updateLegend(id, legend, file);
       if (update_legend) {
         const index = this.legends.findIndex((legend) => String(legend.id) === id);

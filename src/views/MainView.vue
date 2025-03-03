@@ -20,6 +20,14 @@ const escapedText = (text: string) =>
     .toUpperCase()
     .trim();
 
+const isSameDate = (date1: Date, date2: Date): boolean => {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
+};
+
 const router = useRouter();
 const store = useLegendStore();
 const listLegendFiltred = ref<Legend[]>([]);
@@ -59,6 +67,11 @@ const applyFilters = () => {
       ),
       Match.when(
         () => !!filters.canton && legend.canton.id !== filters.canton.id,
+        () => false,
+      ),
+      // TODO: definir como funcionaria el filtro de fecha
+      Match.when(
+        () => !!filters.date && !isSameDate(new Date(legend.created_at), new Date(filters.date)),
         () => false,
       ),
       Match.when(

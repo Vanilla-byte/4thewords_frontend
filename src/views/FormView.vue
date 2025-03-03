@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import { Match } from "effect";
 
 import { InputSelect, InputText, TextArea, InputFile } from "@/components/ui";
-import { Legend } from "@/schemas/legends";
+import { Legend, type LegendDto } from "@/schemas/legends";
 import { useLegendStore } from "@/stores";
 import { useNotify } from "@/composables/useSwal";
 
@@ -31,11 +31,11 @@ const emptyLegend = {
   },
   image_url: "",
   source: "",
-} satisfies Legend;
+} satisfies LegendDto;
 
 const store = useLegendStore();
 const imageModel = ref<File | null>(null);
-const form = ref<Legend>(structuredClone(emptyLegend));
+const form = ref<LegendDto>(structuredClone(emptyLegend));
 const errors = ref<{ [key: string]: string[] }>({});
 
 const filteredCantons = computed(() => store.cantons.filter((c) => c.province_id === form.value.province.id));

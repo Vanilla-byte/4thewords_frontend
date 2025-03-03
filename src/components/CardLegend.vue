@@ -35,7 +35,7 @@ const emit = defineEmits(["edit", "delete"]);
         </p>
 
         <div class="mt-4 text-gray-500 dark:text-gray-400 text-sm flex flex-col gap-1">
-          <p>📅 <strong>Fecha:</strong> {{ legend.legend_date }}</p>
+          <p>📅 <strong>Fecha:</strong> {{ legend.relative_created_at }}</p>
           <p>
             📍 <strong>Ubicación:</strong> {{ legend.district.name }}, {{ legend.canton.name }},
             {{ legend.province.name }}
